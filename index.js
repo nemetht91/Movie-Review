@@ -8,7 +8,9 @@ import session from "express-session";
 import env from "dotenv";
 import MovieFetcher from "./movie_fetch.js";
 import DbConnection from "./database.js";
-import Users from "./users.js";
+import UsersDbModel from "./users_dbModel.js";
+import MoviesDbModel from "./movies_dbModel.js";
+import ReviewsDbModel from "./reviews_dbModel.js";
 
 const app = express();
 const port = 3000;
@@ -24,7 +26,9 @@ const dbConnection = new DbConnection(
     process.env.PG_PORT
 );
 
-const users = new Users(dbConnection);
+const usersDbModel = new UsersDbModel(dbConnection);
+const moviesDbModel = new MoviesDbModel(dbConnection);
+const reviewsDbModel = new ReviewsDbModel(dbConnection);
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,14 +36,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/", async(req, res) => {
-    // var movies = await movieFetcher.getMovie("jurassic");
-    // movies.forEach(movie => {
-    //     console.log(movie);
-    // });
-    // const new_user = await users.saveUser("dummyemail@gmail.com", "123456", "John", "Smith", "Johnny01");
-    // console.log(new_user);
-    const isUsed = await users.isUsernameUsed("Johny01");
-    console.log(isUsed);
+  
+    
 });
 
 

@@ -1,8 +1,8 @@
+import DbModel from "./dbModel.js";
 
-
-class Users{
+class UsersDbModel extends DbModel{
     constructor(dbConnection){
-        this.dbConnection = dbConnection
+        super(dbConnection)
     }
 
     async getUser(email){
@@ -40,16 +40,6 @@ class Users{
         return this.isResult(result);
     }
 
-    async isResult(result){
-        if (result == null){
-            return false;
-        }
-        if (result.length < 1 || result == undefined){
-            return false;
-        }
-        return true;
-    }
-
 }
 
-export default Users;
+export default UsersDbModel;
