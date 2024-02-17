@@ -1,0 +1,107 @@
+:root{
+    --primary-color:#FF7A01;
+    --secondary-color: #3D3B40;
+    --background-color: black;
+    --dark-color:#000;
+    --light-color:#f4f4f4e3;
+    --text-color: gray;
+    --showcase-background: url("../img/cinema.jpg");
+}
+
+/* Basic styling */
+
+/* Universal selector*/
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'Lato', 'sans-serif';
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: var(--background-color);
+
+}
+
+ul{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+a:hover{
+    color: var(--primary-color);
+}
+
+.hidden{
+    display: none;
+}
+
+
+
+.container{
+    max-width: 1300px;
+    margin: 0 auto;
+    overflow: auto;
+    padding: 0 40px;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+/* Home page */
+
+.showcase .container{
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1),
+        rgba(0, 0, 255, 0.055)
+      ), var(--showcase-background);
+        color: #f4f4f4;
+        background-size: cover;
+        background-position: center;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+}
+
+.movie{
+    background-color: var(--secondary-color);
+    color: white;
+    border: white solid 1.5px;
+}
+
+.movie a, h4{
+    margin-left: 7.5px;
+}
+
+.movie a{
+    color: white;
+}
+
+.movie img,
+.review img{
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}

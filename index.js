@@ -32,11 +32,16 @@ const reviewsDbModel = new ReviewsDbModel(dbConnection);
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(express.static("public"));
 
 
 app.get("/", async(req, res) => {
-  
+  const movies = await moviesDbModel.getAllMovies();
+  const reviews = await reviewsDbModel.getAllReviews();
+  res.render("index.ejs", {
+    movies: movies,
+    reviews: reviews
+  })
     
 });
 
