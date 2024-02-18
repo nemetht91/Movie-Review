@@ -1,0 +1,22 @@
+<%- include('partials/header.ejs'); -%>
+
+
+
+<section class="reviews">
+  <div class="container">
+    <h2>Newest Reviews</h2>
+    <div class="grid">
+      <% for(let i = 0; i < reviews.length; i++) { %>
+        <div class="review">
+          <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path  %>" alt="<%= movie.title %> poster">
+          <a href=""><%= movie.title %></a>
+          <a href=""><%= reviews[i].username %></a>
+          <h4><%= reviews[i].rating %>/10</h4>
+          <p><%= reviews[i].review %></p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+  
+<%- include('partials/footer.ejs'); -%>

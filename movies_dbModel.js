@@ -7,7 +7,7 @@ class MoviesDbModel extends DbModel{
 
     async getAllMovies(){
         const result = await this.dbConnection.sendQuery(
-            "SELECT * FROM movies ORDER by id DESC",[]
+            "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id GROUP BY movies.id",[]
         );
         
         if (this.isResult(result)){
@@ -21,6 +21,16 @@ class MoviesDbModel extends DbModel{
             "SELECT * FROM movies WHERE api_id = $1",[apiId]
         );
         
+        if (this.isResult(result)){
+            return result[0];
+        }
+        return null;
+    }
+
+    async getMovieByTitle(title){
+        const result = await this.dbConnection.sendQuery(
+            "SELECT * FROM movies WHERE title = $1",[title]
+        );
         if (this.isResult(result)){
             return result[0];
         }

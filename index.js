@@ -45,6 +45,17 @@ app.get("/", async(req, res) => {
     
 });
 
+app.get("/reviews", async(req, res) => {
+    var title = req.query.movie;
+    //title = title.trimStart();
+    const movie = await moviesDbModel.getMovieByTitle(title);
+    const reviews = await reviewsDbModel.getAllReivewForMovie(movie.id);
+    res.render("reviews.ejs", {
+        movie: movie,
+        reviews: reviews
+      })
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

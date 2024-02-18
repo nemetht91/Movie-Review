@@ -15,8 +15,8 @@
         <div class="movie">
           <img src="https://image.tmdb.org/t/p/original/<%= movies[0].poster_path  %>" alt="<%= movies[0].title %> poster">
           <a href=""><%= movies[0].title %></a>
-          <a href="">4 reviews</a>
-          <h4>⭐ 8.2</h4>
+          <a href="/reviews?movie=<%=movies[0].title%>"><%= movies[0].review_count %> reviews</a>
+          <h4>⭐ <%= Math.round( movies[0].avg_rating *100)/100 %></h4>
         </div>
       <% } %>
     </div>
