@@ -3,7 +3,11 @@
 <section class="showcase">
   <div class="container">
     <h1>The Movie Reviewer</h1>
-    <h2>Be a movie critic yourself!</h2>
+    <div class="flex">
+      <img src="/img/video-camera.png" alt="video-camera">
+      <a href="https://www.flaticon.com/free-icons/cinema" title="cinema icons">Cinema icons created by Good Ware - Flaticon</a>
+    </div>
+    
   </div>
 </section>
 
@@ -13,10 +17,13 @@
     <div class="grid">
       <% for(let i = 0; i < 6; i++) { %>
         <div class="movie">
-          <img src="https://image.tmdb.org/t/p/original/<%= movies[0].poster_path  %>" alt="<%= movies[0].title %> poster">
-          <a href=""><%= movies[0].title %></a>
-          <a href="/reviews?movie=<%=movies[0].title%>"><%= movies[0].review_count %> reviews</a>
-          <h4>⭐ <%= Math.round( movies[0].avg_rating *100)/100 %></h4>
+          <a href="/reviews?movie=<%=movies[0].title%>">
+            <img src="https://image.tmdb.org/t/p/original/<%= movies[0].poster_path  %>" alt="<%= movies[0].title %> poster">
+            <h4><%= movies[0].title %></h4>
+              <h4><%= movies[0].review_count %> reviews</h4>
+            <h4>⭐ <%= Math.round( movies[0].avg_rating *100)/100 %></h4>
+          </a>
+          
         </div>
       <% } %>
     </div>
@@ -31,7 +38,7 @@
         <div class="review">
           <img src="https://image.tmdb.org/t/p/original/<%= reviews[0].poster_path  %>" alt="<%= reviews[0].title %> poster">
           <a href=""><%= reviews[0].title %></a>
-          <a href=""><%= reviews[0].username %></a>
+          <a href="/profile?user=<%=reviews[0].username%>"><%= reviews[0].username %></a>
           <h4><%= reviews[0].rating %>/10</h4>
           <p><%= reviews[0].review %></p>
         </div>

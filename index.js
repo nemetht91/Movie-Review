@@ -56,6 +56,18 @@ app.get("/reviews", async(req, res) => {
       })
 });
 
+app.get("/profile", async(req, res) => {
+    var username = req.query.user;
+    //title = title.trimStart();
+    const user = await usersDbModel.getUserByUsername(username);
+    const reviews = await reviewsDbModel.getAllReivewForUser(user.id);
+    console.log(reviews)
+    // res.render("reviews.ejs", {
+    //     movie: movie,
+    //     reviews: reviews
+    //   })
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

@@ -15,6 +15,16 @@ class UsersDbModel extends DbModel{
         return null;
     }
 
+    async getUserByUsername(username){
+        const result = await this.dbConnection.sendQuery(
+            "SELECT * FROM users WHERE username = $1", [username]
+        );
+        if (this.isResult(result)){
+            return result[0];
+        }
+        return null;
+    }
+
     async saveUser(email, password, firstName, lastName, username){
         const result = await this.dbConnection.sendQuery(
             "INSERT INTO users (email, password, first_name, last_name, username) VALUES ($1, $2, $3, $4, $5) RETURNING *", [email, password, firstName, lastName, username]

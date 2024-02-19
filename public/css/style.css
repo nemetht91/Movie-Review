@@ -1,10 +1,10 @@
 :root{
-    --primary-color:#FF7A01;
+    --primary-color:#D04848;
     --secondary-color: #3D3B40;
-    --background-color: black;
+    --background-color: white;
     --dark-color:#000;
     --light-color:#f4f4f4e3;
-    --text-color: gray;
+    --text-color: black;
     --showcase-background: url("../img/cinema.jpg");
 }
 
@@ -18,7 +18,7 @@
 }
 
 body{
-    font-family: 'Lato', 'sans-serif';
+    font-family: 'Roboto', 'Helvetica', 'Arial', 'sans-serif';
     color: var(--text-color);
     line-height: 1.6;
     background-color: var(--background-color);
@@ -67,36 +67,135 @@ a:hover{
     height: 100%;
 }
 
+/* Navigation */
+
+.fg--search {
+    background: white;
+    position: relative;
+    width: 500px;
+  }
+  
+  .fg--search input {
+    width: 100%;
+    padding: 5px;
+    display: block;
+  }
+  
+  .fg--search button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    position: absolute;
+    padding: 7px;
+    margin-right: 5px;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    color: #000;
+  }
+
+
+.navbar{
+    background-color: var(--secondary-color);
+    border-bottom: lightgray solid 1px;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+}
+
+.navbar h2{
+    font-family: "Rubik Doodle Shadow", system-ui;
+    font-weight: 400;
+    font-style: normal; 
+    font-size: 20px;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    padding: 5px;
+
+}
+
+
+.navbar nav ul{
+    height: 60px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+
+.navbar nav a{
+    color: white;
+
+    margin: 0 20px;
+    font-size: 1.1rem;
+}
+
+.navbar nav a:hover{
+    color: var(--primary-color);
+}
+
 
 /* Home page */
 
+h1{
+    font-family: "Rubik Doodle Shadow", system-ui;
+    font-weight: 400;
+    font-style: normal; 
+    font-size: 70px;
+}
+
+.hot-movies h2, .new-reviews  h2{
+    margin: 20px 0px;
+    padding-left: 5px;
+    border-left: var(--primary-color) solid 5px;
+    border-radius: 2px;
+}
+
+.hot-movies, .new-reviews {
+    margin-bottom: 40px;
+}
+
 .showcase .container{
-    background-image: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 1),
-        rgba(0, 0, 255, 0.055)
-      ), var(--showcase-background);
-        color: #f4f4f4;
-        background-size: cover;
-        background-position: center;
         height: 500px;
         display: flex;
-        justify-content: center;
-        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+}
+
+.showcase img{
+    height: 200px;
+    width: fit-content;
+}
+
+
+
+.showcase a{
+    font-size: 8px;
+    text-orientation: mixed;
+    writing-mode: vertical-lr;
 }
 
 .movie{
-    background-color: var(--secondary-color);
-    color: white;
-    border: white solid 1.5px;
+    
 }
 
-.movie a, h4{
+.movie h4{
     margin-left: 7.5px;
 }
 
 .movie a{
     color: white;
+    border-radius: 10px;
+    color: black;
+}
+
+.movie a:hover{
 }
 
 .movie img,
@@ -104,4 +203,5 @@ a:hover{
     height: 250px;
     width: 100%;
     object-fit: cover;
+    border-radius: 10px;
 }
