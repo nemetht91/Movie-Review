@@ -1,16 +1,6 @@
 <%- include('partials/header.ejs'); -%>
 
-<section class="reviews-movie">
-  <div class="container flex">
-    <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path  %>" alt="<%= movie.title %> poster">
-    <div class="text">
-      <h2><%= movie.title %></h2>
-      <h3><%= movie.release_date.toISOString().split('T')[0] %></h3>
-      <h4>⭐ <%= Math.round( movie.avg_rating *100)/100 %>/10</h4>
-      <p><%= movie.overview %></p>
-    </div>
-  </div>
-</section>
+<%- include('partials/movie_sum.ejs', {movie: movie}); -%>
 
 <section class="reviews">
   <div class="container">
@@ -23,7 +13,7 @@
                 <p>
                   <%= reviews[i].review.substring(0, 300) %>...
                 </p>
-                <a class="read" href="">Full Review</a>
+                <a class="read" href="/review?id=<%=reviews[i].id %>">Full Review</a>
                 <div class="flex">
                   
                   <a href="/profile?user=<%=reviews[i].username%>"><%= reviews[i].username %></a>
