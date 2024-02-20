@@ -147,6 +147,17 @@ a:hover{
 }
 
 
+/* footer */
+footer{
+    display: flex;
+    height: 60px;
+    background-color: var(--secondary-color);
+    color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Home page */
 
 h1{
