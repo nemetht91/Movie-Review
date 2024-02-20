@@ -18,7 +18,7 @@ class ReviewsDbModel extends DbModel{
 
     async getAllReivewForMovie(movieId){
         const result = await this.dbConnection.sendQuery(
-            "SELECT * FROM reviews WHERE movie_id = $1 ORDER by id DESC",[movieId]
+            "SELECT reviews.*, users.username FROM reviews JOIN users ON reviews.user_id = users.id WHERE movie_id = $1 ORDER by reviews.id DESC",[movieId]
         );
         
         if (this.isResult(result)){
