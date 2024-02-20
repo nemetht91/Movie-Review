@@ -16,6 +16,17 @@ class MoviesDbModel extends DbModel{
         return null;
     }
 
+    async getMovie(movieId){
+        const result = await this.dbConnection.sendQuery(
+            "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id WHERE movies.id = $1 GROUP BY movies.id",[movieId]
+        );
+        
+        if (this.isResult(result)){
+            return result[0];
+        }
+        return null;
+    }
+
     async getMovieByApiID(apiId){
         const result = await this.dbConnection.sendQuery(
             "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id WHERE api_id = $1 GROUP BY movies.id",[apiId]

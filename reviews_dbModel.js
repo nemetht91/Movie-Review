@@ -16,6 +16,17 @@ class ReviewsDbModel extends DbModel{
         return null;
     }
 
+    async getReview(reviewId){
+        const result = await this.dbConnection.sendQuery(
+            "SELECT reviews.*, users.username FROM reviews JOIN users ON reviews.user_id = users.id WHERE reviews.id = $1 ORDER BY reviews.id DESC ",[reviewId]
+        );
+        
+        if (this.isResult(result)){
+            return result[0];
+        }
+        return null;
+    }
+
     async getAllReivewForMovie(movieId){
         const result = await this.dbConnection.sendQuery(
             "SELECT reviews.*, users.username FROM reviews JOIN users ON reviews.user_id = users.id WHERE movie_id = $1 ORDER by reviews.id DESC",[movieId]
