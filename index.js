@@ -56,6 +56,17 @@ app.get("/reviews", async(req, res) => {
       })
 });
 
+app.get("/review", async(req, res) => {
+  var review_id = req.query.id;
+  const review = await reviewsDbModel.getReview(review_id);
+  const movie = await moviesDbModel.getMovie(review.movie_id);
+  
+  res.render("review.ejs", {
+      movie: movie,
+      review: review
+    })
+});
+
 app.get("/profile", async(req, res) => {
     var username = req.query.user;
     //title = title.trimStart();
