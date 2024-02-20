@@ -173,8 +173,6 @@ h1{
     object-fit: contain;
 }
 
-
-
 .showcase a{
     font-size: 8px;
     text-orientation: mixed;
@@ -223,4 +221,42 @@ a.read{
     color: rgb(57, 118, 220);
     margin-left: auto;
     width: fit-content;
+}
+
+
+/* Reviews */
+.reviews-movie{
+    padding-top: 100px
+}
+
+.reviews-movie .container{
+    gap: 30px
+}
+
+.reviews-movie h2{
+    font-size: 2rem;
+    border-left: var(--primary-color) solid 5px;
+    border-radius: 2px;
+    padding-left: 5px;
+}
+
+.reviews-movie h3{
+    padding-left: 10px;
+}
+
+.reviews-movie p{
+    padding-left: 10px;
+    margin-top: 20px;
+}
+
+
+.reviews-movie img{
+    height: 250px;
+    width: 175px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.reviews{
+    margin-top: 50px;
 }

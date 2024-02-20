@@ -1,18 +1,37 @@
 <%- include('partials/header.ejs'); -%>
 
-
+<section class="reviews-movie">
+  <div class="container flex">
+    <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path  %>" alt="<%= movie.title %> poster">
+    <div class="text">
+      <h2><%= movie.title %></h2>
+      <h3><%= movie.release_date.toISOString().split('T')[0] %></h3>
+      <h4>⭐ <%= Math.round( movie.avg_rating *100)/100 %>/10</h4>
+      <p><%= movie.overview %></p>
+    </div>
+  </div>
+</section>
 
 <section class="reviews">
   <div class="container">
-    <h2>Newest Reviews</h2>
-    <div class="grid">
+    <h2>Reviews</h2>
+    <div>
       <% for(let i = 0; i < reviews.length; i++) { %>
-        <div class="review">
-          <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path  %>" alt="<%= movie.title %> poster">
-          <a href=""><%= movie.title %></a>
-          <a href=""><%= reviews[i].username %></a>
-          <h4><%= reviews[i].rating %>/10</h4>
-          <p><%= reviews[i].review %></p>
+        <div class="review">          
+              <h4>⭐ <%= reviews[i].rating %>/10</h4>
+              <div>
+                <p>
+                  <%= reviews[i].review.substring(0, 300) %>...
+                </p>
+                <a class="read" href="">Full Review</a>
+                <div class="flex">
+                  
+                  <a href="/profile?user=<%=reviews[i].username%>"><%= reviews[i].username %></a>
+                <p><%=reviews[i].date.toISOString().split('T')[0]%></p>
+                </div>
+              </div>
+                           
+             
         </div>
       <% } %>
     </div>
