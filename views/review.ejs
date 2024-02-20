@@ -1,0 +1,20 @@
+<%- include('partials/header.ejs'); -%>
+
+<%- include('partials/movie_sum.ejs', {movie: movie}); -%>
+
+<section class="full-review">
+  <div class="container">
+    <h2 class="red-bd-left">Review</h2>
+    <div>             
+        <p>
+            <%= review.review %>...
+        </p>
+        <h4>⭐ <%= review.rating %>/10</h4>
+        <div class="flex"> 
+            <a href="/profile?user=<%=review.username%>"><%= review.username %></a>
+            <p><%=review.date.toISOString().split('T')[0]%></p>   
+        </div>
+  </div>
+</section>
+  
+<%- include('partials/footer.ejs'); -%>

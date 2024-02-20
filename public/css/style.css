@@ -67,6 +67,12 @@ a:hover{
     height: 100%;
 }
 
+.red-bd-left{
+    border-left: var(--primary-color) solid 5px;
+    border-radius: 2px;
+    padding-left: 5px;
+}
+
 /* Navigation */
 
 .fg--search {
@@ -152,9 +158,6 @@ h1{
 
 .hot-movies h2, .new-reviews h2{
     margin: 20px 0px;
-    padding-left: 5px;
-    border-left: var(--primary-color) solid 5px;
-    border-radius: 2px;
 }
 
 .hot-movies, .new-reviews {
@@ -223,40 +226,51 @@ a.read{
     width: fit-content;
 }
 
+/* Movie Sum*/
 
-/* Reviews */
-.reviews-movie{
+.movie-sum{
     padding-top: 100px
 }
 
-.reviews-movie .container{
+.movie-sum .container{
     gap: 30px
 }
 
-.reviews-movie h2{
+.movie-sum h2{
     font-size: 2rem;
-    border-left: var(--primary-color) solid 5px;
-    border-radius: 2px;
-    padding-left: 5px;
+   
 }
 
-.reviews-movie h3{
+.movie-sum h3{
     padding-left: 10px;
 }
 
-.reviews-movie p{
+.movie-sum p{
     padding-left: 10px;
     margin-top: 20px;
 }
 
 
-.reviews-movie img{
+.movie-sum img{
     height: 250px;
     width: 175px;
     object-fit: cover;
     border-radius: 10px;
 }
 
+/* Reviews */
+
 .reviews{
     margin-top: 50px;
+}
+
+/* Full review */
+.full-review .container{
+    margin-top: 50px;
+} 
+
+
+
+.full-review p{
+    margin: 30px 0px 20px 0px;
 }

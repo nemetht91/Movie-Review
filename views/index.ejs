@@ -14,7 +14,7 @@
 <section class="hot-movies">
   <div class="container">
     <div class="flex">
-      <h2>Hottest Movies</h2>
+      <h2 class="red-bd-left">Hottest Movies</h2>
       <a href="">View All</a>
     </div>
     
@@ -37,7 +37,7 @@
 <section class="new-reviews">
   <div class="container">
     <div class="flex">
-      <h2>Newest Reviews</h2>
+      <h2 class="red-bd-left">Newest Reviews</h2>
       <a href="">View All</a>
     </div>
     <div>
@@ -52,7 +52,7 @@
               <p>
                 <%= reviews[i].review.substring(0, 300) %>...
               </p>
-              <a class="read" href="">Full Review</a>
+              <a class="read" href="/review?id=<%=reviews[i].id %>">Full Review</a>
               
               <div class="flex">
                 <a href="/profile?user=<%=reviews[i].username%>"><%= reviews[i].username %></a>
