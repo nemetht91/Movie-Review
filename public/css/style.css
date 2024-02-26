@@ -49,12 +49,12 @@ a:hover{
     max-width: 1300px;
     margin: 0 auto;
     overflow: auto;
-    padding: 0 40px;
-    padding-bottom: 60px;
+    padding: 60px 40px;
+    
 }
 
 .navbar .container{
-    padding-bottom: 0px;
+    padding: 0px 40px;
 
 }
 
@@ -248,11 +248,11 @@ a.read{
 }
 
 /* Movie Sum*/
-
 .movie-sum,
 .results{
-    padding-top: 100px
+    padding-top: 40px
 }
+
 
 .movie-sum .container{
     gap: 30px;
