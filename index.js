@@ -47,14 +47,45 @@ app.get("/", async(req, res) => {
 
 app.get("/reviews", async(req, res) => {
     var title = req.query.movie;
-    //title = title.trimStart();
-    const movie = await moviesDbModel.getMovieByTitle(title);
-    const reviews = await reviewsDbModel.getAllReivewForMovie(movie.id);
+    if (title != undefined){
+      await movieRequestTitle(title, res);
+    }
+    else{
+      var movieApiId = req.query.movieApi;
+      await movieRequestApi(movieApiId, res);
+    }
+});
+
+async function movieRequestTitle(title, res){
+  const movie = await moviesDbModel.getMovieByTitle(title);
+  await renderWithReview(movie, res);
+}
+
+async function movieRequestApi(apiId, res){
+  const movie = await moviesDbModel.getMovieByApiID(apiId);
+  if(movie == null){
+    await renderNewmovie(apiId, res);
+  }
+  else{
+    await renderWithReview(movie, res);
+  }
+}
+
+async function renderWithReview(movie, res){
+  const reviews = await reviewsDbModel.getAllReivewForMovie(movie.id);
     res.render("reviews.ejs", {
         movie: movie,
         reviews: reviews
-      })
-});
+      });
+}
+
+async function renderNewmovie(apiId, res){
+    const movie = await movieFetcher.getMovieById(apiId);
+    res.render("reviews.ejs", {
+      movie: movie,
+      reviews: []
+    });
+}
 
 app.get("/review", async(req, res) => {
   var review_id = req.query.id;

@@ -1,9 +1,17 @@
 <section class="movie-sum">
     <div class="container flex">
-      <img src="https://image.tmdb.org/t/p/original/<%= movie.poster_path  %>" alt="<%= movie.title %> poster">
+      <img 
+      src="https://image.tmdb.org/t/p/original/<%= movie.poster_path  %>" alt="<%= movie.title %> poster"
+      onerror="this.onerror=null;this.src='./img/no-image.png';"
+      >
       <div class="text">
         <h2 class="red-bd-left"><%= movie.title %></h2>
-        <h3><%= movie.release_date.toISOString().split('T')[0] %></h3>
+        
+        <% if(typeof(movie.release_date) == "string") { %>
+          <h3><%= movie.release_date %></h3>
+         <% } else { %> 
+            <h3><%= movie.release_date.toISOString().split('T')[0] %></h3>
+          <% } %>
         <h4>⭐ <%= Math.round( movie.avg_rating *100)/100 %>/10</h4>
         <p><%= movie.overview %></p>
       </div>

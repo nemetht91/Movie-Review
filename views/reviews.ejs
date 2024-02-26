@@ -6,6 +6,10 @@
   <div class="container">
     <h2>Reviews</h2>
     <div>
+      <% if(reviews.length < 1) { %>
+        <h3>No Reviews yet</h3>
+      <% } %>
+
       <% for(let i = 0; i < reviews.length; i++) { %>
         <div class="review">          
               <h4>⭐ <%= reviews[i].rating %>/10</h4>

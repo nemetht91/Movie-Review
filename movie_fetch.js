@@ -43,6 +43,18 @@ class MovieFetcher{
         }
         return data.results;       
     }
+
+    async getMovieById(movieId){
+        const parameters = new URLSearchParams({
+            language: "en-US",
+        });
+        const url = this.base_url + `/movie/${movieId}?`+parameters;
+        const data = await this.fetchData(url);
+        if (data == null){
+            return null;
+        }
+        return data;       
+    }
 }
 
 export default MovieFetcher;

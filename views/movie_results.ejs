@@ -6,7 +6,7 @@
         <div class="movies">
             <% for(let i =0; i < movies.length; i++)  { %>
                 <div class="movie flex">
-                    <a href="/reviews?movie=<%=movies[0].title%>">
+                    <a href="/reviews?movieApi=<%=movies[i].id%>">
                         <img 
                         src="https://image.tmdb.org/t/p/original/<%= movies[i].poster_path  %>" 
                         alt="<%=movies[i].title %> poster"
@@ -14,12 +14,15 @@
                         >
                     </a>
                     <div>
-                        <a href="/reviews?movie=<%=movies[0].title%>"><h4><%= movies[i].title %></h4></a>
+                        <a href="/reviews?movieApi=<%=movies[i].id%>"><h4><%= movies[i].title %></h4></a>
     
                         <p>
-                         <%= movies[i].overview %>
+                         <%= movies[i].overview.substring(0, 500) %>
+                         <% if ( movies[i].overview.lenght > 500){ %>
+                            <%= "..." %> 
+                         <% } %>
                         </p>
-                        <a href=""><%= movies[i].review_count %> reviews</a>
+                        <a href="/reviews?movieApi=<%=movies[i].id%>"><%= movies[i].review_count %> reviews</a>
                     </div>
                 </div>
              <% } %>   
