@@ -80,6 +80,31 @@ app.get("/profile", async(req, res) => {
 });
 
 
+app.post("/search", async(req, res) => {
+  const movieTitle = req.body.movieTitle;
+  var movieResultes = await movieFetcher.getMovie(movieTitle);
+  movieResultes = await addReviewCount(movieResultes);
+  res.render("movie_results.ejs",
+  {
+    search_text: movieTitle,
+    movies: movieResultes
+  });
+});
+
+async function addReviewCount(movies){
+  for(let i = 0; i < movies.length; i++ ){
+    var movieWithReview = await moviesDbModel.getMovieByApiID(movies[i].id);
+    if (movieWithReview == null){
+      movies[i].review_count = 0;
+    }
+    else{
+      movies[i].review_count = movieWithReview.review_count;
+    }
+  }
+  return movies;  
+}
+
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

@@ -1,0 +1,31 @@
+<%- include('partials/header.ejs'); -%>
+
+<section class="results">
+    <div class="container">
+        <h2>Search results for "<%= search_text %>"</h2>
+        <div class="movies">
+            <% for(let i =0; i < movies.length; i++)  { %>
+                <div class="movie flex">
+                    <a href="/reviews?movie=<%=movies[0].title%>">
+                        <img 
+                        src="https://image.tmdb.org/t/p/original/<%= movies[i].poster_path  %>" 
+                        alt="<%=movies[i].title %> poster"
+                        onerror="this.onerror=null;this.src='./img/no-image.png';"
+                        >
+                    </a>
+                    <div>
+                        <a href="/reviews?movie=<%=movies[0].title%>"><h4><%= movies[i].title %></h4></a>
+    
+                        <p>
+                         <%= movies[i].overview %>
+                        </p>
+                        <a href=""><%= movies[i].review_count %> reviews</a>
+                    </div>
+                </div>
+             <% } %>   
+        </div>
+    </div>
+    
+</section>
+
+<%- include('partials/footer.ejs'); -%>
