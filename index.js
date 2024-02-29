@@ -14,6 +14,7 @@ import ReviewsDbModel from "./reviews_dbModel.js";
 
 const app = express();
 const port = 3000;
+const saltRounds = 10;
 
 env.config();
 
@@ -142,8 +143,56 @@ app.get("/login", (req, res) => {
 
 app.get("/register", (req, res) => {
   res.render("register.ejs");
-
 });
+
+app.post("/register", async(req, res) => {
+  const newUser = await getNewUser(req);
+  if (! await IsUserValid(newUser)){
+    res.redirect("/register")
+    return;
+  }
+  const savedUser = await usersDbModel.saveUser(newUser);
+  if(savedUser == null){
+    console.log("Failed to save user");
+    return;
+  }
+  res.redirect("/");
+});
+
+async function getNewUser(req){
+  const newUser = {};
+  newUser.email = req.body.email;
+  newUser.password = await hashPassword(req.body.password);
+  newUser.firstname = req.body.firstname;
+  newUser.lastname = req.body.lastname;
+  newUser.username = req.body.username;
+  return newUser;
+}
+
+async function hashPassword(password){
+  try {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
+  } catch (error) {
+    console.log("Error during hashing:", error);
+    return null;
+  }
+}
+
+async function IsUserValid(newUser){
+  if(await usersDbModel.isEmailUsed(newUser.email)){
+    console.log("Email address is already used");
+    return false;
+  }
+  if(await usersDbModel.isUsernameUsed(newUser.username)){
+    console.log("Username is already used");
+    return false;
+  }
+  if(newUser.password == null){
+    return false;
+  }
+  return true;
+}
 
 
 app.listen(port, () => {

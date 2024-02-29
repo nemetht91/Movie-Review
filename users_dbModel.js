@@ -25,12 +25,12 @@ class UsersDbModel extends DbModel{
         return null;
     }
 
-    async saveUser(email, password, firstName, lastName, username){
+    async saveUser(newUser){
         const result = await this.dbConnection.sendQuery(
-            "INSERT INTO users (email, password, first_name, last_name, username) VALUES ($1, $2, $3, $4, $5) RETURNING *", [email, password, firstName, lastName, username]
+            "INSERT INTO users (email, password, first_name, last_name, username) VALUES ($1, $2, $3, $4, $5) RETURNING *", [newUser.email, newUser.password, newUser.firstname, newUser.lastname, newUser.username]
         );
         if (this.isResult(result)){
-            return result[0];
+            return result;
         }
         return null;
     }
@@ -39,15 +39,14 @@ class UsersDbModel extends DbModel{
         const result = await this.dbConnection.sendQuery(
             "SELECT * from users WHERE email = $1", [email]
         );
-        console.log(result);
-        return this.isResult(result);
+        return !this.isResult(result);
     }
 
     async isUsernameUsed(username){
         const result = await this.dbConnection.sendQuery(
             "SELECT * from users WHERE username = $1", [username]
         );
-        return this.isResult(result);
+        return !this.isResult(result);
     }
 
 }
