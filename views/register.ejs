@@ -1,0 +1,33 @@
+<%- include('partials/header.ejs'); -%>
+
+<section class="register">
+    <div class="container">
+        <a href="/"><h2 class="logo logo-lrg">TMR</h2></a>
+        <div class="card">
+            <h2>Create Acount</h2>
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" name="firstname">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" name="lastname">
+                  </div>
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username">
+                  </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" name="email">
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password">
+                </div>
+                <button type="submit" class="btn">Register</button>
+              </form>
+        </div>
+    </div>
+</section>

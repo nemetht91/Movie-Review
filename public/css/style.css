@@ -371,7 +371,8 @@ a.read{
 
 /* Login */
 
-.login .container{
+.login .container,
+.register .container{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -395,9 +396,11 @@ a.read{
     font-size: 1rem;
 }
 
-.form-group input{
+.login .form-group input,
+.register .form-group input{
     font-size: 1rem;
     padding: 5px;
+    width: 300px;
 }
 
 
