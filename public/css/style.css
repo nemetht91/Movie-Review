@@ -243,6 +243,11 @@ h1{
     writing-mode: vertical-lr;
 }
 
+.hot-movies .container,
+.new-reviews .container{
+    padding: 20px 40px;
+
+}
 
 .movie h4,
 .movie p{
