@@ -20,12 +20,19 @@ class MoviesDbModel extends DbModel{
         const result = await this.dbConnection.sendQuery(
             "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id WHERE movies.id = $1 GROUP BY movies.id",[movieId]
         );
-        
         if (this.isResult(result)){
             return result[0];
         }
         return null;
     }
+
+    async isSaved(movieId){
+        const result = await this.dbConnection.sendQuery(
+            "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id WHERE movies.id = $1 GROUP BY movies.id",[movieId]
+        );
+        return this.isResult(result);
+    }
+
 
     async getMovieByApiID(apiId){
         const result = await this.dbConnection.sendQuery(
@@ -48,9 +55,9 @@ class MoviesDbModel extends DbModel{
         return null;
     }
 
-    async saveMovie(apiID, title, posterPath, overview, release_date){
+    async saveMovie(movie){
         const result = await this.dbConnection.sendQuery(
-            "INSERT INTO movies (api_id, title, poster_path, overview, release_date) VALUES ($1, $2, $3, $4, $5) RETURNING *", [apiID, title, posterPath, overview, release_date]
+            "INSERT INTO movies (api_id, title, poster_path, overview, release_date) VALUES ($1, $2, $3, $4, $5) RETURNING *", [movie.id, movie.title, movie.poster_path, movie.overview, movie.release_date]
         );
         if (this.isResult(result)){
             return result[0];

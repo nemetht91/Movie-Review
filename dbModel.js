@@ -9,7 +9,7 @@ class DbModel{
         if (result == null){
             return false;
         }
-        if (result.length < 1 || result == undefined){
+        if (result.length < 1){
             return false;
         }
         return true;

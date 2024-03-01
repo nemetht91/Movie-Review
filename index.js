@@ -38,6 +38,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie:{
+      maxAge: 1000 * 60 * 60 *24,
+    }
   })
 );
 
@@ -182,6 +185,58 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
   })
 })
+
+app.get("/create", async (req, res) => {
+  if(!req.isAuthenticated()){
+    res.redirect("/");
+    return;
+  }
+  const movieId= req.query.id;
+  const movie = await getMovie(movieId);
+  if(movie == null){
+    res.redirect("/");
+    return;
+  }
+  res.render("create.ejs",{
+    movie: movie,
+    isLoggedIn:req.isAuthenticated()
+  });
+  
+});
+
+async function getMovie(id){
+  var movie = await moviesDbModel.getMovie(id);
+  if(movie != null){
+    return movie;
+  }
+  return await movieFetcher.getMovieById(id);
+}
+
+app.post("/create", async (req, res) => {
+  if(!req.isAuthenticated()){
+    res.redirect("/");
+    return;
+  }
+  const movieId= req.query.id;
+  const review = req.body.review;
+  const rating = req.body.rating;
+
+  var movie = await getMovie(movieId);
+  const isSaved = await moviesDbModel.isSaved(movie.id);
+  console.log(movie);
+  if(!isSaved){
+    movie = await moviesDbModel.saveMovie(movie);
+  }
+  if(movie == null){
+    res.redirect("/");
+    return;
+  }
+
+  await reviewsDbModel.saveReview(rating, review, req.user.id, movie.id, new Date());
+
+  res.redirect(`/reviews?movie=${movie.title}`);
+  
+});
 
 app.post("/register", async(req, res) => {
   const newUser = await getNewUser(req);

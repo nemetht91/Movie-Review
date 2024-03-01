@@ -4,6 +4,13 @@
 
 <section class="reviews">
   <div class="container">
+    <div class="action">
+      <% if(isLoggedIn) { %>
+        <a href="/create?id=<%=movie.id %>" class="btn">Create Review</a>
+      <% } else{ %>
+        <a href="/login" class="btn">Sign In to create a review</a>
+      <% }  %>
+    </div>
     <h2>Reviews</h2>
     <div>
       <% if(reviews.length < 1) { %>
@@ -29,6 +36,7 @@
         </div>
       <% } %>
     </div>
+    
   </div>
 </section>
   
