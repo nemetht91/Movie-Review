@@ -30,8 +30,13 @@
                         <button type="submit"><i class="fa fa-search"></i></button>
                       </div>
                     </form>  
-                  </li>             
-                  <li><a href="/login">Sign In</a></li>
+                  </li>
+                  <% if(isLoggedIn){ %>
+                    <li><a href="/logout">Log out</a></li>
+                  <% } else{ %>
+                    <li><a href="/login">Sign In</a></li>
+                  <% } %>  
+                  
               </ul>
           </nav>
       </div>

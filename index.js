@@ -18,6 +18,7 @@ const saltRounds = 10;
 
 env.config();
 
+
 const movieFetcher = new MovieFetcher(process.env.MOVIEDB_API_KEY);
 const dbConnection = new DbConnection(
     process.env.PG_USER,
@@ -32,8 +33,19 @@ const moviesDbModel = new MoviesDbModel(dbConnection);
 const reviewsDbModel = new ReviewsDbModel(dbConnection);
 
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.get("/", async(req, res) => {
@@ -41,7 +53,8 @@ app.get("/", async(req, res) => {
   const reviews = await reviewsDbModel.getAllReviews();
   res.render("index.ejs", {
     movies: movies,
-    reviews: reviews
+    reviews: reviews,
+    isLoggedIn: req.isAuthenticated()
   })
     
 });
@@ -49,42 +62,44 @@ app.get("/", async(req, res) => {
 app.get("/reviews", async(req, res) => {
     var title = req.query.movie;
     if (title != undefined){
-      await movieRequestTitle(title, res);
+      await movieRequestTitle(title, req, res);
     }
     else{
       var movieApiId = req.query.movieApi;
-      await movieRequestApi(movieApiId, res);
+      await movieRequestApi(movieApiId, req, res);
     }
 });
 
-async function movieRequestTitle(title, res){
+async function movieRequestTitle(title, req, res){
   const movie = await moviesDbModel.getMovieByTitle(title);
-  await renderWithReview(movie, res);
+  await renderWithReview(movie, req, res);
 }
 
-async function movieRequestApi(apiId, res){
+async function movieRequestApi(apiId, req, res){
   const movie = await moviesDbModel.getMovieByApiID(apiId);
   if(movie == null){
-    await renderNewmovie(apiId, res);
+    await renderNewmovie(apiId, req, res);
   }
   else{
-    await renderWithReview(movie, res);
+    await renderWithReview(movie, req, res);
   }
 }
 
-async function renderWithReview(movie, res){
+async function renderWithReview(movie, req, res){
   const reviews = await reviewsDbModel.getAllReivewForMovie(movie.id);
     res.render("reviews.ejs", {
         movie: movie,
-        reviews: reviews
+        reviews: reviews,
+        isLoggedIn:req.isAuthenticated()
       });
 }
 
-async function renderNewmovie(apiId, res){
+async function renderNewmovie(apiId, req, res){
     const movie = await movieFetcher.getMovieById(apiId);
     res.render("reviews.ejs", {
       movie: movie,
-      reviews: []
+      reviews: [],
+      isLoggedIn:req.isAuthenticated()
     });
 }
 
@@ -95,7 +110,8 @@ app.get("/review", async(req, res) => {
   
   res.render("review.ejs", {
       movie: movie,
-      review: review
+      review: review,
+      isLoggedIn:req.isAuthenticated()
     })
 });
 
@@ -119,7 +135,8 @@ app.post("/search", async(req, res) => {
   res.render("movie_results.ejs",
   {
     search_text: movieTitle,
-    movies: movieResultes
+    movies: movieResultes,
+    isLoggedIn:req.isAuthenticated()
   });
 });
 
@@ -137,13 +154,34 @@ async function addReviewCount(movies){
 }
 
 app.get("/login", (req, res) => {
-  res.render("login.ejs");
+  if(req.isAuthenticated()){
+    res.redirect("/");
+    return;
+  }
+  res.render("login.ejs",{
+    isLoggedIn:req.isAuthenticated()
+  });
 
 });
 
 app.get("/register", (req, res) => {
-  res.render("register.ejs");
+  if(req.isAuthenticated()){
+    res.redirect("/");
+    return;
+  }
+  res.render("register.ejs",{
+    isLoggedIn:req.isAuthenticated()
+  });
 });
+
+app.get("/logout", (req, res) => {
+  req.logout(function (err) {
+    if(err){
+      return next(err);
+    }
+    res.redirect("/");
+  })
+})
 
 app.post("/register", async(req, res) => {
   const newUser = await getNewUser(req);
@@ -158,6 +196,12 @@ app.post("/register", async(req, res) => {
   }
   res.redirect("/");
 });
+
+app.post("/login",  passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/login",
+}));
+
 
 async function getNewUser(req){
   const newUser = {};
@@ -194,6 +238,38 @@ async function IsUserValid(newUser){
   return true;
 }
 
+
+
+passport.use(
+  new Strategy(async function verify(username, password, cb){
+    const user = await usersDbModel.getUser(username);
+    if (user == null){
+      return cb("User not found");
+    }
+    if(!isPasswordValid(user.password, password)){
+      return cb(null, false);
+    }
+    return cb(null, user)
+  })
+);
+
+async function isPasswordValid(storedPassword, password){
+  try {
+    await bcrypt.compare(password, storedPassword);
+    return true;
+  } catch (error) {
+    console.log("Incorrect password!");
+    return false;    
+  }
+  
+}
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+passport.deserializeUser((user, cb) => {
+  cb(null, user);
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
