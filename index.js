@@ -194,7 +194,9 @@ app.post("/register", async(req, res) => {
     console.log("Failed to save user");
     return;
   }
-  res.redirect("/");
+  req.login(savedUser, (err)=> {
+    res.redirect("/");
+  })
 });
 
 app.post("/login",  passport.authenticate("local", {
