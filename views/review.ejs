@@ -16,5 +16,40 @@
         </div>
   </div>
 </section>
+
+<section class="comments">
+  <div class="container">
+    <div class="action">
+      <% if(isLoggedIn) { %>
+        <form action="/comment?review_id=<%= review.id %>" method="POST">
+          <div class="form-group">
+            <label for="comment">Comment</label>
+            <textarea type="text" name="comment"
+            required cols="50" rows="10" ></textarea>
+          </div>
+          <button type="submit" class="btn">Submit</button>
+      <% } else{ %>
+        <a href="/login" class="btn">Sign In to write a comment</a>
+      <% }  %>
+    </div>
+    <div class="list">
+      <h2 class="red-bd-left">Comments</h2>
+      <ol>
+        <% for(let i=0; i < comments.length; i++) { %>
+          <div class="comment">
+            <li>
+              <p><a href="/profile?user=<%=comments[i].username%>"><%= comments[i].username %></a> says:</p>
+              <p class="date">
+                <%= comments[i].date.toISOString().split('T')[0] %> <%= comments[i].date.toISOString().split('T')[1].split(":")[0] %>:<%= comments[i].date.toISOString().split('T')[1].split(":")[1] %>
+              </p>
+              <p><%= comments[i].comment_text %></p>
+            </li>
+          </div>
+        <% } %>  
+      </ol>
+      
+    </div>
+  </div>
+</section>
   
 <%- include('partials/footer.ejs'); -%>

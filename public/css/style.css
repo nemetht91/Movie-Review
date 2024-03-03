@@ -464,3 +464,30 @@ a.read{
 }
 
 
+/* comments */
+.comments .list{
+    margin: 40px 0px;
+}
+
+.comment{
+    margin: 20px 0px;
+    margin-left: 20px;
+}
+
+.comment p{
+    margin: 10px 0px;
+}
+
+.comment p a{
+    display: inline;
+}
+
+.comment p.date{
+    font-size: 0.8rem;
+    color: #333;
+}
+
+.comments .form-group textarea{
+    font-size: 1rem;
+    padding: 5px;
+}

@@ -11,6 +11,7 @@ import DbConnection from "./database.js";
 import UsersDbModel from "./users_dbModel.js";
 import MoviesDbModel from "./movies_dbModel.js";
 import ReviewsDbModel from "./reviews_dbModel.js";
+import CommentsDbModel from "./comments_db_model.js";
 
 const app = express();
 const port = 3000;
@@ -31,6 +32,7 @@ const dbConnection = new DbConnection(
 const usersDbModel = new UsersDbModel(dbConnection);
 const moviesDbModel = new MoviesDbModel(dbConnection);
 const reviewsDbModel = new ReviewsDbModel(dbConnection);
+const commentsDbModel = new CommentsDbModel(dbConnection);
 
 
 app.use(
@@ -110,10 +112,12 @@ app.get("/review", async(req, res) => {
   var review_id = req.query.id;
   const review = await reviewsDbModel.getReview(review_id);
   const movie = await moviesDbModel.getMovie(review.movie_id);
+  const comments = await commentsDbModel.getComments(review.id);
   
   res.render("review.ejs", {
       movie: movie,
       review: review,
+      comments: comments,
       isLoggedIn:req.isAuthenticated()
     })
 });
@@ -254,6 +258,17 @@ app.post("/create", async (req, res) => {
   res.redirect(`/reviews?movie=${movie.title}`);
   
 });
+
+app.post("/comment", async(req, res) =>{
+  const comment = req.body.comment;
+  const reviewId = req.query.review_id;
+
+  if(req.isAuthenticated()){
+    await commentsDbModel.saveComment(comment, new Date(), req.user.id, reviewId);
+  }
+
+  res.redirect(`/review?id=${reviewId}`);
+})
 
 app.post("/register", async(req, res) => {
   const newUser = await getNewUser(req);
