@@ -90,7 +90,7 @@ async function movieRequestApi(apiId, req, res){
 
 async function renderWithReview(movie, req, res){
   const reviews = await reviewsDbModel.getAllReivewForMovie(movie.id);
-    res.render("reviews.ejs", {
+    res.render("movie_reviews.ejs", {
         movie: movie,
         reviews: reviews,
         isLoggedIn:req.isAuthenticated()
@@ -99,7 +99,7 @@ async function renderWithReview(movie, req, res){
 
 async function renderNewmovie(apiId, req, res){
     const movie = await movieFetcher.getMovieById(apiId);
-    res.render("reviews.ejs", {
+    res.render("movie_reviews.ejs", {
       movie: movie,
       reviews: [],
       isLoggedIn:req.isAuthenticated()
@@ -118,16 +118,33 @@ app.get("/review", async(req, res) => {
     })
 });
 
+app.get("/movies", async(req, res) => {
+  const movies = await moviesDbModel.getAllMovies();
+  res.render("movies.ejs",
+  {
+    movies: movies,
+    isLoggedIn: req.isAuthenticated()
+  })
+});
+
+app.get("/all_reviews", async(req, res) => {
+  const reviews = await reviewsDbModel.getAllReviews();
+  res.render("all_reviews.ejs",
+  {
+    reviews: reviews,
+    isLoggedIn: req.isAuthenticated()
+  })
+});
+
 app.get("/profile", async(req, res) => {
     var username = req.query.user;
-    //title = title.trimStart();
     const user = await usersDbModel.getUserByUsername(username);
     const reviews = await reviewsDbModel.getAllReivewForUser(user.id);
     console.log(reviews)
-    // res.render("reviews.ejs", {
-    //     movie: movie,
-    //     reviews: reviews
-    //   })
+    res.render("user_profile.ejs", {
+        user: user,
+        reviews: reviews
+      })
 });
 
 

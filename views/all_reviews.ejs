@@ -1,45 +1,7 @@
 <%- include('partials/header.ejs', {isLoggedIn: isLoggedIn}); -%>
 
-<section class="showcase">
+<section class="all-reviews">
   <div class="container">
-    <h1>The Movie Reviewer</h1>
-    <div class="flex">
-      <img src="/img/video-camera.png" alt="video-camera">
-      <a href="https://www.flaticon.com/free-icons/cinema" title="cinema icons">Cinema icons created by Good Ware - Flaticon</a>
-    </div>
-    
-  </div>
-</section>
-
-<section class="hot-movies">
-  <div class="container">
-    <div class="flex">
-      <h2 class="red-bd-left">Hottest Movies</h2>
-      <a href="/movies">View All</a>
-    </div>
-    
-    <div class="grid">
-      <% for(let i = 0; i < movies.length; i++) { %>
-        <div class="movie">
-          <a href="/reviews?movie=<%=movies[i].title%>">
-            <img src="https://image.tmdb.org/t/p/original/<%= movies[i].poster_path  %>" alt="<%= movies[0].title %> poster">
-            <h4><%= movies[i].title %></h4>
-              <p><%= movies[i].review_count %> reviews</p>
-            <h4>⭐ <%= Math.round( movies[i].avg_rating *100)/100 %>/10</h4>
-          </a>
-          
-        </div>
-      <% } %>
-    </div>
-  </div>
-</section>
-
-<section class="new-reviews">
-  <div class="container">
-    <div class="flex">
-      <h2 class="red-bd-left">Newest Reviews</h2>
-      <a href="/all_reviews">View All</a>
-    </div>
     <div>
       <% for(let i = 0; i < reviews.length; i++) { %>
         <div class="review">
