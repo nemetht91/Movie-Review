@@ -6,7 +6,8 @@
       <% for(let i = 0; i < movies.length; i++) { %>
         <div class="movie">
           <a href="/reviews?movie=<%=movies[i].title%>">
-            <img src="https://image.tmdb.org/t/p/original/<%= movies[i].poster_path  %>" alt="<%= movies[0].title %> poster">
+            <img src="https://image.tmdb.org/t/p/original/<%= movies[i].poster_path  %>" alt="<%= movies[0].title %> poster"
+            onerror="this.onerror=null;this.src='./img/no-image.png';">
             <h4><%= movies[i].title %></h4>
               <p><%= movies[i].review_count %> reviews</p>
             <h4>⭐ <%= Math.round( movies[i].avg_rating *100)/100 %>/10</h4>

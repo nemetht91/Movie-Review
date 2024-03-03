@@ -5,7 +5,8 @@
     <div>
       <% for(let i = 0; i < reviews.length; i++) { %>
         <div class="review">
-          <img src="https://image.tmdb.org/t/p/original/<%= reviews[i].poster_path  %>" alt="<%= reviews[i].title %> poster">
+          <img src="https://image.tmdb.org/t/p/original/<%= reviews[i].poster_path  %>" alt="<%= reviews[i].title %> poster"
+          onerror="this.onerror=null;this.src='./img/no-image.png';">
           <div>
             <div class="flex">
               <a href="/reviews?movie=<%=reviews[i].title%>"><h4><%= reviews[i].title %></h4></a>
