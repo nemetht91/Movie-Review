@@ -246,12 +246,19 @@ h1{
 .hot-movies .container,
 .new-reviews .container{
     padding: 20px 40px;
+}
 
+.new-reviews .review div{
+    width: 100%;
 }
 
 .movie h4,
 .movie p{
     margin-left: 7.5px;
+}
+
+.hot-movies .movie h4{
+    height: 50px;
 }
 
 .movie a{
