@@ -7,7 +7,7 @@ class MoviesDbModel extends DbModel{
 
     async getAllMovies(){
         const result = await this.dbConnection.sendQuery(
-            "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id GROUP BY movies.id ORDER BY review_count DESC",[orderBy]
+            "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id GROUP BY movies.id ORDER BY review_count DESC",[]
         );
         
         if (this.isResult(result)){
