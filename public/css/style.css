@@ -257,7 +257,7 @@ h1{
     margin-left: 7.5px;
 }
 
-.hot-movies .movie h4{
+.movie h4{
     height: 50px;
 }
 
@@ -441,6 +441,9 @@ a.read{
     gap: 20px;
 }
 
-
+/* Movies */
+.movies{
+    padding-top: 40px;
+}
 
 
