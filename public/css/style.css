@@ -446,4 +446,21 @@ a.read{
     padding-top: 40px;
 }
 
+/* user profile*/
+
+.profile img{
+    height: 150px;
+}
+
+.profile .container{
+    justify-content: flex-start;
+    gap: 50px;
+    padding-top: 100px;
+}
+
+.profile h2{
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
 

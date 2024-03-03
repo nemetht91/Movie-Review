@@ -140,10 +140,10 @@ app.get("/profile", async(req, res) => {
     var username = req.query.user;
     const user = await usersDbModel.getUserByUsername(username);
     const reviews = await reviewsDbModel.getAllReivewForUser(user.id);
-    console.log(reviews)
     res.render("user_profile.ejs", {
         user: user,
-        reviews: reviews
+        reviews: reviews,
+        isLoggedIn: req.isAuthenticated()
       })
 });
 
