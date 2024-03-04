@@ -43,6 +43,30 @@ a:hover{
     display: none;
 }
 
+button.arrow{
+    all: unset;
+    font-size: 2rem;
+    padding: 5px 10px;
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+
+
+button.arrow:hover{
+    cursor: pointer;
+}
+
+.slider{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    top: -280px;
+    padding-right: 4px;
+}
 
 
 .container{
@@ -490,4 +514,11 @@ a.read{
 .comments .form-group textarea{
     font-size: 1rem;
     padding: 5px;
+}
+
+
+.comments .btn{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
