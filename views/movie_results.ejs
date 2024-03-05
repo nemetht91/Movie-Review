@@ -14,9 +14,9 @@
                         >
                     </a>
                     <div>
-                        <a href="/reviews?movieApi=<%=movies[i].id%>"><h4><%= movies[i].title %></h4></a>
-    
-                        <p>
+                        <a href="/reviews?movieApi=<%=movies[i].id%>"><h3><%= movies[i].title %></h3></a>
+                        <p><%= movies[i].release_date %></p>
+                        <p class="summary">
                          <%= movies[i].overview.substring(0, 500) %>
                          <% if ( movies[i].overview.lenght > 500){ %>
                             <%= "..." %> 

@@ -398,7 +398,7 @@ a.read{
 }
 
 
-.results .movie h4{
+.results .movie h3{
     color: var(--primary-color);
     margin-left: 0px;
 }
@@ -466,6 +466,19 @@ a.read{
     gap: 20px;
 }
 
+.stars{
+    display: flex;
+    gap: 3px
+}
+.stars i{
+    color: #FFC107;
+    font-size: 1.1rem;
+}
+
+.star:hover{
+    cursor: pointer;
+}
+
 /* Movies */
 .movies{
     padding-top: 40px;
@@ -525,7 +538,8 @@ a.read{
 }
 
 @media(max-width: 1200px){
- .hot-movies .grid{
+ .hot-movies .grid,
+ .all-movies .grid{
     grid-template-columns: repeat(5, 1fr);
  }
 
@@ -546,13 +560,15 @@ a.read{
         height: 125px;
     }
 
-    .hot-movies .grid{
+    .hot-movies .grid,
+    .all-movies .grid{
        grid-template-columns: repeat(4, 1fr);
     }
    }
 
    @media(max-width: 700px){
-    .hot-movies .grid{
+    .hot-movies .grid,
+    .all-movies .grid{
        grid-template-columns: repeat(3, 1fr);
     }
 
@@ -576,7 +592,8 @@ a.read{
     margin: 0 10px;
    }
 
-    .hot-movies .grid{
+    .hot-movies .grid,
+    .all-movies .grid{
        grid-template-columns: repeat(2, 1fr);
     }
 
@@ -593,15 +610,31 @@ a.read{
         display: none;
     }
 
-    .new-reviews .review img{
+    .new-reviews .review img,
+    .all-reviews .review img{
         display: none;
     }
+
+    .movie-sum .flex{
+        flex-direction: column-reverse;
+    }
+
+  
+
+     .results p.summary{
+        display: none;
+    }
+
+   
+
+   
 
    }
 
  
    @media(max-width: 300px){
-    .hot-movies .grid{
+    .hot-movies .grid,
+    .all-movies .grid{
        grid-template-columns: repeat(1, 1fr);
     }
    }
