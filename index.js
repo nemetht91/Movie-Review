@@ -54,7 +54,7 @@ app.use(passport.session());
 
 
 app.get("/", async(req, res) => {
-  const movies = await moviesDbModel.getMovies(6);
+  const movies = await moviesDbModel.getMovies(10);
   const reviews = await reviewsDbModel.getReviews(6);
   res.render("index.ejs", {
     movies: movies,
