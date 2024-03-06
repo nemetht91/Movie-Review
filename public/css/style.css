@@ -52,6 +52,7 @@ button.arrow{
     border: 2px solid var(--secondary-color);
     border-radius: 2px;
     background-color: rgba(255, 255, 255, 0.4);
+    padding-bottom: 50px;
 }
 
 
@@ -67,6 +68,7 @@ button.arrow:hover{
     position: relative;
     top: -280px;
     padding-right: 4px;
+    height: 0px;
 }
 
 
@@ -246,7 +248,7 @@ h1{
     margin: 20px 0px;
 }
 
-.hot-movies, .new-reviews {
+ .new-reviews {
     margin-bottom: 40px;
 }
 
@@ -268,7 +270,9 @@ h1{
     writing-mode: vertical-lr;
 }
 
-
+.new-movies .container{
+    padding-bottom: 20px;
+}
 
 .new-movies .grid{
     margin-top: 20px;
@@ -609,7 +613,37 @@ a.read{
     .navbar .form-group{
         width: 200px;
     }
+
+    .hot-movies .movie img{
+        height: 200px;
+        width: 150px;
+    }
+
+
    }
+
+   @media(max-width: 650px){
+        .new-movie:nth-child(n+2){
+            display: none;
+        }
+        .new-movies .grid .new-movie:first-child{
+            grid-column: span 3;
+        }
+
+        .new-movie h2{
+            font-size: 20px;
+            top: -30px;
+        }
+
+        .new-movies .container{
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 20px;
+        }
+
+        
+   }
+
 
    @media(max-width: 550px){
 
