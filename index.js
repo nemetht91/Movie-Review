@@ -156,6 +156,7 @@ app.post("/search", async(req, res) => {
   const movieTitle = req.body.movieTitle;
   var movieResultes = await movieFetcher.getMovie(movieTitle);
   movieResultes = await addReviewCount(movieResultes);
+  console.log(movieResultes[0]);
   res.render("movie_results.ejs",
   {
     search_text: movieTitle,
@@ -241,7 +242,6 @@ app.post("/create", async (req, res) => {
   const movieId= req.query.id;
   const review = req.body.review;
   const rating = req.body.rating;
-
   var movie = await getMovie(movieId);
   const isSaved = await moviesDbModel.isSaved(movie.id);
   console.log(movie);

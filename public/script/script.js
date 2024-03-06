@@ -88,12 +88,14 @@ function hideArrows(){
 
 /* Rating */
 const stars = document.querySelectorAll(".stars .star");
+const ratingInput = document.querySelector("#rating");
 
 stars.forEach(star => {
     star.addEventListener("click", event => {
         var starId = event.currentTarget.getAttribute("id");
         var id = Number(starId.split("-")[1]);
         highlightStars(id);
+        ratingInput.setAttribute("value", id);
     });
 });
 
@@ -117,5 +119,7 @@ function UnHighlightStar(star){
     starIcons[0].classList.remove("hidden");
     starIcons[1].classList.add("hidden");
 }
+
+
 
 

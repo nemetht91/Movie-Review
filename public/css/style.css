@@ -468,7 +468,8 @@ a.read{
 
 .stars{
     display: flex;
-    gap: 3px
+    gap: 3px;
+    margin: 10px 0px;
 }
 .stars i{
     color: #FFC107;
