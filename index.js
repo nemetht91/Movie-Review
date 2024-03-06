@@ -156,7 +156,6 @@ app.post("/search", async(req, res) => {
   const movieTitle = req.body.movieTitle;
   var movieResultes = await movieFetcher.getMovie(movieTitle);
   movieResultes = await addReviewCount(movieResultes);
-  console.log(movieResultes[0]);
   res.render("movie_results.ejs",
   {
     search_text: movieTitle,
@@ -227,7 +226,7 @@ app.get("/create", async (req, res) => {
 });
 
 async function getMovie(id){
-  var movie = await moviesDbModel.getMovie(id);
+  var movie = await moviesDbModel.getMovieByApiID(id);
   if(movie != null){
     return movie;
   }

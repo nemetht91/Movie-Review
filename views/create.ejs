@@ -6,7 +6,11 @@
     <div class="container">
 
             <h2>Create Review</h2>
-            <form action="/create?id=<%= movie.id %>" method="POST">
+            <% if (movie.api_id != undefined) { %> 
+                <form action="/create?id=<%= movie.api_id %>" method="POST">
+            <% } else { %> 
+                <form action="/create?id=<%= movie.id %>" method="POST">
+            <% } %>
                 <div class="form-group">
                     <textarea type="text" name="review"
                     required cols="50" rows="10" ></textarea>
