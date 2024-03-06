@@ -242,8 +242,7 @@ app.post("/create", async (req, res) => {
   const review = req.body.review;
   const rating = req.body.rating;
   var movie = await getMovie(movieId);
-  const isSaved = await moviesDbModel.isSaved(movie.id);
-  console.log(movie);
+  const isSaved = await moviesDbModel.isSaved(movieId);
   if(!isSaved){
     movie = await moviesDbModel.saveMovie(movie);
   }

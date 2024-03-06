@@ -6,7 +6,11 @@
   <div class="container">
     <div class="action">
       <% if(isLoggedIn) { %>
+        <% if (movie.api_id != undefined) { %> 
+          <a href="/create?id=<%=movie.api_id %>" class="btn">Create Review</a>
+      <% } else { %> 
         <a href="/create?id=<%=movie.id %>" class="btn">Create Review</a>
+      <% } %>
       <% } else{ %>
         <a href="/login" class="btn">Sign In to create a review</a>
       <% }  %>
