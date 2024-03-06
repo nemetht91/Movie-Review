@@ -268,9 +268,42 @@ h1{
     writing-mode: vertical-lr;
 }
 
+
+
+.new-movies .grid{
+    margin-top: 20px;
+
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background-color: var(--secondary-color);
+}
+
+.new-movies .grid .new-movie:first-child{
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+
+.new-movies img{
+    width: 100%;
+    object-fit: cover;
+    opacity: 60%;
+    mask-image: linear-gradient(rgb(0 0 0 / 100%), transparent);
+}
+
+
+.new-movie h2{
+  position: relative;
+  top: -50px;
+  color: white;
+  padding-left: 20px;
+  opacity: 100%;
+  height: 0px;
+}
+
 .hot-movies .container,
 .new-reviews .container{
-    padding: 20px 40px;
+    padding: 10px 40px;
 }
 
 .review div{

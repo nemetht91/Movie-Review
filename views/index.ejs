@@ -1,13 +1,23 @@
 <%- include('partials/header.ejs', {isLoggedIn: isLoggedIn}); -%>
 
-<section class="showcase">
+
+
+<section class="new-movies">
   <div class="container">
-    <h1>The Movie Reviewer</h1>
-    <div class="flex">
-      <img src="/img/video-camera.png" alt="video-camera">
-      <a href="https://www.flaticon.com/free-icons/cinema" title="cinema icons">Cinema icons created by Good Ware - Flaticon</a>
+    <div class="grid">
+      <% for(let i = 0; i < newMovies.length; i++) { %>
+        <div class="new-movie">
+          <div class="image">
+            <a href="/reviews?movie=<%=newMovies[i].title%>">
+              <img src="https://image.tmdb.org/t/p/original/<%= newMovies[i].backdrop_path  %>" alt="<%= newMovies[0].title %> backdrop image">
+          </div>
+            <h2><%= newMovies[i].title  %></h2>
+          </a>
+          
+        </div>
+      <% } %>
+        
     </div>
-    
   </div>
 </section>
 

@@ -27,6 +27,17 @@ class MoviesDbModel extends DbModel{
         return null;
     }
 
+    async getNewestMovies(limit){
+        const result = await this.dbConnection.sendQuery(
+            "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id GROUP BY movies.id ORDER BY release_date DESC LIMIT $1",[ limit]
+        );
+        
+        if (this.isResult(result)){
+            return result;
+        }
+        return null;
+    }
+
     async getMovie(movieId){
         const result = await this.dbConnection.sendQuery(
             "SELECT movies.*, count(review) as review_count, avg(rating) as avg_rating FROM movies JOIN reviews on reviews.movie_id = movies.id WHERE movies.id = $1 GROUP BY movies.id",[movieId]
