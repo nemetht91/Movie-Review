@@ -61,10 +61,28 @@ app.get("/", async(req, res) => {
     movies: movies,
     newMovies: newMovies,
     reviews: reviews,
-    isLoggedIn: req.isAuthenticated()
+    isLoggedIn: req.isAuthenticated(),
+    overviewShortener: overviewShortener
   })
     
 });
+
+function overviewShortener(overview, maxWords){
+  var striped = overview.split(" ");
+  if (striped.length <= maxWords){
+    return overview;
+  }
+  var shortend = "";
+  for(let i = 0; i < maxWords; i++){
+    shortend += striped[i];
+    if(i != maxWords-1){
+      shortend += " ";
+    }
+  }
+  shortend += "..."
+  
+  return shortend;
+}
 
 app.get("/reviews", async(req, res) => {
     var title = req.query.movie;
@@ -97,7 +115,8 @@ async function renderWithReview(movie, req, res){
     res.render("movie_reviews.ejs", {
         movie: movie,
         reviews: reviews,
-        isLoggedIn:req.isAuthenticated()
+        isLoggedIn:req.isAuthenticated(),
+        overviewShortener: overviewShortener
       });
 }
 
@@ -106,7 +125,8 @@ async function renderNewmovie(apiId, req, res){
     res.render("movie_reviews.ejs", {
       movie: movie,
       reviews: [],
-      isLoggedIn:req.isAuthenticated()
+      isLoggedIn:req.isAuthenticated(),
+      overviewShortener: overviewShortener
     });
 }
 
@@ -138,7 +158,8 @@ app.get("/all_reviews", async(req, res) => {
   res.render("all_reviews.ejs",
   {
     reviews: reviews,
-    isLoggedIn: req.isAuthenticated()
+    isLoggedIn: req.isAuthenticated(),
+    overviewShortener: overviewShortener
   })
 });
 
@@ -149,7 +170,8 @@ app.get("/profile", async(req, res) => {
     res.render("user_profile.ejs", {
         user: user,
         reviews: reviews,
-        isLoggedIn: req.isAuthenticated()
+        isLoggedIn: req.isAuthenticated(),
+        overviewShortener: overviewShortener
       })
 });
 

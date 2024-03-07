@@ -30,7 +30,7 @@
             </div>
               <p>
                 <% if (reviews[i].review.length >= 300){ %>
-                  <%= reviews[i].review.substring(0, 300) %>...
+                  <%= overviewShortener(reviews[i].review, 50)%>
                 <% } else { %>
                   <%= reviews[i].review %>
                 <% } %> 
