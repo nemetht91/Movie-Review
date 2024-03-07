@@ -6,7 +6,7 @@
   <div class="container">
     <div class="grid">
       <% for(let i = 0; i < newMovies.length; i++) { %>
-        <div class="new-movie">
+        <div class="new-movie movie<%=i%>">
           <div class="image">
             <a href="/reviews?movie=<%=newMovies[i].title%>">
               <img src="https://image.tmdb.org/t/p/original/<%= newMovies[i].backdrop_path  %>" alt="<%= newMovies[0].title %> backdrop image">

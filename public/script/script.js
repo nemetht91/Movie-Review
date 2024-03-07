@@ -121,5 +121,22 @@ function UnHighlightStar(star){
 }
 
 
+// New movie refresher
 
+window.setInterval(refeshMovies, 10000);
+
+function refeshMovies(){
+    const movie0 = document.querySelector(".movie0");
+    const movie1 = document.querySelector(".movie1");
+    const movie2 = document.querySelector(".movie2");
+
+    movie0.classList.remove("movie0");
+    movie1.classList.remove("movie1");
+    movie2.classList.remove("movie2");
+
+    movie0.classList.add("movie2");
+    movie1.classList.add("movie0");
+    movie2.classList.add("movie1");
+
+}
 
