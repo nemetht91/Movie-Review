@@ -18,6 +18,7 @@ window.addEventListener("load", event => {
     }
 });
 
+
 window.addEventListener("resize", event => {
     if(window.location.href.replaceAll(window.location.origin, '').replaceAll('/','').length === 0 ){
         var oldMovieDisplayNum = movieDisplayNum;
@@ -71,17 +72,17 @@ if(leftArraow){
 
 function hideArrows(){
     if(firstmovie == 0){
-        leftArraow.classList.add("hidden");
+        leftArraow.classList.add("hide");
     }
     else{
-        leftArraow.classList.remove("hidden");
+        leftArraow.classList.remove("hide");
     }
 
-    if(firstmovie + movieDisplayNum >= movies.length - 1){
-        rightArrow.classList.add("hidden");
+    if(firstmovie + movieDisplayNum >= movies.length){
+        rightArrow.classList.add("hide");
     }
     else{
-        rightArrow.classList.remove("hidden");
+        rightArrow.classList.remove("hide");
     }
 }
 
@@ -123,13 +124,15 @@ function UnHighlightStar(star){
 
 // New movie refresher
 
-window.setInterval(refeshMovies, 10000);
+//window.setInterval(refeshMovies, 10000);
 
 function refeshMovies(){
     const movie0 = document.querySelector(".movie0");
     const movie1 = document.querySelector(".movie1");
     const movie2 = document.querySelector(".movie2");
-
+    const parentGrid =  document.querySelector(".new-movies .container");
+    var currentHeight = movie0.offsetHeight ;
+    parentGrid.setAttribute("height", currentHeight);
     movie0.classList.remove("movie0");
     movie1.classList.remove("movie1");
     movie2.classList.remove("movie2");
@@ -137,6 +140,10 @@ function refeshMovies(){
     movie0.classList.add("movie2");
     movie1.classList.add("movie0");
     movie2.classList.add("movie1");
+    parentGrid.removeAttribute("height");
+
+    
+    
 
 }
 
