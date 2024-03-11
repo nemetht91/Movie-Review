@@ -1,11 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
-import pg from "pg";
 import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import env from "dotenv";
+import flash from "express-flash-message";
 import MovieFetcher from "./movie_fetch.js";
 import DbConnection from "./database.js";
 import UsersDbModel from "./users_dbModel.js";
@@ -46,6 +46,12 @@ app.use(
     cookie:{
       maxAge: 1000 * 60 * 60 *24,
     }
+  })
+);
+
+app.use(
+  flash({
+    sessionKeyName: process.env.SESSION_KEY_NAME,
   })
 );
 
@@ -304,13 +310,14 @@ app.post("/comment", async(req, res) =>{
 
 app.post("/register", async(req, res) => {
   const newUser = await getNewUser(req);
-  if (! await IsUserValid(newUser)){
+  if (! await IsUserValid(newUser, res)){
     res.redirect("/register")
     return;
   }
   const savedUser = await usersDbModel.saveUser(newUser);
   if(savedUser == null){
-    console.log("Failed to save user");
+    res.flash("fail", "Unexpected error, please try agin");
+    res.redirect("/register");
     return;
   }
   req.login(savedUser, (err)=> {
@@ -319,8 +326,17 @@ app.post("/register", async(req, res) => {
 });
 
 app.post("/login",  passport.authenticate("local", {
-  failureRedirect: "/login"
-}), (req, res) => {
+  successRedirect: "/login-success",
+  failureRedirect: "/login-fail",
+  failureFlash: true,
+}));
+
+app.get("/login-fail", (req,res) => {
+  res.flash("fail", "Invalid email or password!");
+  res.redirect("/login");
+});
+
+app.get("/login-success", (req, res) => {
   res.redirect(returnURL);
 });
 
@@ -345,19 +361,21 @@ async function hashPassword(password){
   }
 }
 
-async function IsUserValid(newUser){
+async function IsUserValid(newUser, res){
+  var response = true;
   if(await usersDbModel.isEmailUsed(newUser.email)){
-    console.log("Email address is already used");
-    return false;
+    res.flash("fail","Email address is already used");
+    response = false;
   }
   if(await usersDbModel.isUsernameUsed(newUser.username)){
-    console.log("Username is already used");
-    return false;
+    res.flash("fail","Username is already used");
+    response = false;
   }
   if(newUser.password == null){
-    return false;
+    res.flash("fail","Incorrect Password");
+    response = false;
   }
-  return true;
+  return response;
 }
 
 
@@ -366,7 +384,7 @@ passport.use(
   new Strategy(async function verify(username, password, cb){
     const user = await usersDbModel.getUser(username);
     if (user == null){
-      return cb("User not found");
+      return cb(null, false);
     }
     if(! await isPasswordValid(user.password, password)){
       return cb(null, false);

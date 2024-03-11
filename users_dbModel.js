@@ -39,14 +39,14 @@ class UsersDbModel extends DbModel{
         const result = await this.dbConnection.sendQuery(
             "SELECT * from users WHERE email = $1", [email]
         );
-        return !this.isResult(result);
+        return this.isResult(result);
     }
 
     async isUsernameUsed(username){
         const result = await this.dbConnection.sendQuery(
             "SELECT * from users WHERE username = $1", [username]
         );
-        return !this.isResult(result);
+        return this.isResult(result);
     }
 
 }

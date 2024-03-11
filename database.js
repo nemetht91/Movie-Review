@@ -31,8 +31,11 @@ class DbConnection{
     }
     catch(err){
       console.error("Error executing query", err.stack);
+      return null;
     }
-    await db.end();
+    finally{
+      await db.end();
+    }
   
     return data;
   }
