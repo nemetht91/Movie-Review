@@ -122,16 +122,19 @@ function UnHighlightStar(star){
     starIcons[1].classList.add("hidden");
 }
 
-submitBtn.addEventListener("click", event => {
-    var warmingMsg = document.querySelector(".create p.warning");
+if(submitBtn){
+    submitBtn.addEventListener("click", event => {
+        var warmingMsg = document.querySelector(".create p.warning");
+    
+        if(ratingInput.getAttribute("value") == null){
+            warmingMsg.classList.remove("hidden");
+        }
+        else{
+            warmingMsg.classList.add("hidden");
+        }
+    });
+}
 
-    if(ratingInput.getAttribute("value") == null){
-        warmingMsg.classList.remove("hidden");
-    }
-    else{
-        warmingMsg.classList.add("hidden");
-    }
-})
 
 
 // New movie refresher
