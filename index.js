@@ -34,6 +34,9 @@ const moviesDbModel = new MoviesDbModel(dbConnection);
 const reviewsDbModel = new ReviewsDbModel(dbConnection);
 const commentsDbModel = new CommentsDbModel(dbConnection);
 
+var returnURL = "/";
+
+
 
 app.use(
   session({
@@ -54,6 +57,7 @@ app.use(passport.session());
 
 
 app.get("/", async(req, res) => {
+  returnURL = req.originalUrl;
   const movies = await moviesDbModel.getMovies(10);
   const newMovies = await moviesDbModel.getNewestMovies(3);
   const reviews = await reviewsDbModel.getReviews(6);
@@ -85,6 +89,7 @@ function overviewShortener(overview, maxWords){
 }
 
 app.get("/reviews", async(req, res) => {
+  returnURL = req.originalUrl;
     var title = req.query.movie;
     if (title != undefined){
       await movieRequestTitle(title, req, res);
@@ -131,6 +136,7 @@ async function renderNewmovie(apiId, req, res){
 }
 
 app.get("/review", async(req, res) => {
+  returnURL = req.originalUrl;
   var review_id = req.query.id;
   const review = await reviewsDbModel.getReview(review_id);
   const movie = await moviesDbModel.getMovie(review.movie_id);
@@ -145,6 +151,7 @@ app.get("/review", async(req, res) => {
 });
 
 app.get("/movies", async(req, res) => {
+  returnURL = req.originalUrl;
   const movies = await moviesDbModel.getAllMovies();
   res.render("movies.ejs",
   {
@@ -154,6 +161,7 @@ app.get("/movies", async(req, res) => {
 });
 
 app.get("/all_reviews", async(req, res) => {
+  returnURL = req.originalUrl;
   const reviews = await reviewsDbModel.getAllReviews();
   res.render("all_reviews.ejs",
   {
@@ -164,6 +172,7 @@ app.get("/all_reviews", async(req, res) => {
 });
 
 app.get("/profile", async(req, res) => {
+    returnURL = req.originalUrl;
     var username = req.query.user;
     const user = await usersDbModel.getUserByUsername(username);
     const reviews = await reviewsDbModel.getAllReivewForUser(user.id);
@@ -177,6 +186,7 @@ app.get("/profile", async(req, res) => {
 
 
 app.post("/search", async(req, res) => {
+  returnURL = req.originalUrl;
   const movieTitle = req.body.movieTitle;
   var movieResultes = await movieFetcher.getMovie(movieTitle);
   movieResultes = await addReviewCount(movieResultes);
@@ -309,9 +319,10 @@ app.post("/register", async(req, res) => {
 });
 
 app.post("/login",  passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/login",
-}));
+  failureRedirect: "/login"
+}), (req, res) => {
+  res.redirect(returnURL);
+});
 
 
 async function getNewUser(req){
@@ -357,7 +368,7 @@ passport.use(
     if (user == null){
       return cb("User not found");
     }
-    if(!isPasswordValid(user.password, password)){
+    if(! await isPasswordValid(user.password, password)){
       return cb(null, false);
     }
     return cb(null, user)
@@ -366,8 +377,8 @@ passport.use(
 
 async function isPasswordValid(storedPassword, password){
   try {
-    await bcrypt.compare(password, storedPassword);
-    return true;
+    var result = await bcrypt.compare(password, storedPassword);
+    return result;
   } catch (error) {
     console.log("Incorrect password!");
     return false;    
