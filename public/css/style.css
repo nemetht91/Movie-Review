@@ -171,6 +171,11 @@ a.btn:hover{
     margin: 7.5px;
   }
 
+  .warning{
+    color: red;
+    font-size: 0.8rem;
+  }
+
 
 /* Navigation */
 

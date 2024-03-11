@@ -90,6 +90,7 @@ function hideArrows(){
 /* Rating */
 const stars = document.querySelectorAll(".stars .star");
 const ratingInput = document.querySelector("#rating");
+const submitBtn = document.querySelector(".create button");
 
 stars.forEach(star => {
     star.addEventListener("click", event => {
@@ -120,6 +121,17 @@ function UnHighlightStar(star){
     starIcons[0].classList.remove("hidden");
     starIcons[1].classList.add("hidden");
 }
+
+submitBtn.addEventListener("click", event => {
+    var warmingMsg = document.querySelector(".create p.warning");
+
+    if(ratingInput.getAttribute("value") == null){
+        warmingMsg.classList.remove("hidden");
+    }
+    else{
+        warmingMsg.classList.add("hidden");
+    }
+})
 
 
 // New movie refresher
